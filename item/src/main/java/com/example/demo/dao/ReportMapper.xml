@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.ReportMapper">
+	<cache/>
+	<select id="userSellStationNumber"
+		resultType="com.example.demo.po.UserSellDeviceNumber">
+		select u.account,COUNT(sa.sale_user) as num from
+		tb_sale_device sa
+		inner join tb_user u on sa.sale_user = u.user_id
+		where u.is_delete = 0 and sa.is_delete = 0
+		group by sa.sale_user
+	</select>
+
+
+
+
+
+
+
+	<!-- 查询网点所在地区的数量 -->
+	<select id="getCountryAndRegionNumber"
+		resultType="com.example.demo.po.UserSellDeviceNumber">
+		select r.region_name as account,COUNT(s.province_id) as num
+		from tb_station s
+		inner join tb_region r on r.region_id = s.province_id
+		where s.is_delete = 0
+		GROUP BY s.province_id
+	</select>
+
+	<!-- 人员销售总数量 -->
+	<select id="getUserSellNumber"
+		resultType="com.example.demo.po.UserSellDeviceNumber">
+		select u.account,sum(sale_number) as num from
+		tb_sale_device sa
+		inner join tb_user u on sa.sale_user = u.user_id
+		where u.is_delete = 0 and sa.is_delete = 0
+		group by sa.sale_user
+	</select>
+
+	<!-- 公司各部门占比 -->
+	<select id="getUserAndDepartmentNumber"
+		resultType="com.example.demo.po.UserSellDeviceNumber">
+		select d.department_name as account,COUNT(u.department_id)
+		as num from tb_user u
+		inner join tb_department d
+		on u.department_id = d.department_id
+		where u.is_delete = 0 and
+		d.is_delete = 0
+		GROUP BY u.department_id
+	</select>
+
+
+
+
+
+
+
+</mapper>

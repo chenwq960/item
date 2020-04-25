@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.LogMapper" >
+ <cache/>
+  <resultMap id="BaseResultMap" type="com.example.demo.po.Log" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_url" property="logUrl" jdbcType="VARCHAR" />
+    <result column="log_start_time" property="logStartTime" jdbcType="TIMESTAMP" />
+    <result column="log_end_time" property="logEndTime" jdbcType="BIGINT" />
+    <result column="log_stay_time" property="logStayTime" jdbcType="TIMESTAMP" />
+    <result column="log_param" property="logParam" jdbcType="VARCHAR" />
+    <result column="log_currentuser" property="logCurrentuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, log_url, log_start_time, log_end_time, log_stay_time, log_param, log_currentuser
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.po.Log" >
+    insert into tb_log (log_id, log_url, log_start_time, 
+      log_end_time, log_stay_time, log_param, 
+      log_currentuser)
+    values (#{logId,jdbcType=INTEGER}, #{logUrl,jdbcType=VARCHAR}, #{logStartTime,jdbcType=TIMESTAMP}, 
+      #{logEndTime,jdbcType=BIGINT}, #{logStayTime,jdbcType=TIMESTAMP}, #{logParam,jdbcType=VARCHAR}, 
+      #{logCurrentuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.po.Log" useGeneratedKeys="true" keyProperty="logId">
+    insert into tb_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logUrl != null" >
+        log_url,
+      </if>
+      <if test="logStartTime != null" >
+        log_start_time,
+      </if>
+      <if test="logEndTime != null" >
+        log_end_time,
+      </if>
+      <if test="logStayTime != null" >
+        log_stay_time,
+      </if>
+      <if test="logParam != null" >
+        log_param,
+      </if>
+      <if test="logCurrentuser != null" >
+        log_currentuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logUrl != null" >
+        #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logStartTime != null" >
+        #{logStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logEndTime != null" >
+        #{logEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="logStayTime != null" >
+        #{logStayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logParam != null" >
+        #{logParam,jdbcType=VARCHAR},
+      </if>
+      <if test="logCurrentuser != null" >
+        #{logCurrentuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.po.Log" >
+    update tb_log
+    <set >
+      <if test="logUrl != null" >
+        log_url = #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logStartTime != null" >
+        log_start_time = #{logStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logEndTime != null" >
+        log_end_time = #{logEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="logStayTime != null" >
+        log_stay_time = #{logStayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logParam != null" >
+        log_param = #{logParam,jdbcType=VARCHAR},
+      </if>
+      <if test="logCurrentuser != null" >
+        log_currentuser = #{logCurrentuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.po.Log" >
+    update tb_log
+    set log_url = #{logUrl,jdbcType=VARCHAR},
+      log_start_time = #{logStartTime,jdbcType=TIMESTAMP},
+      log_end_time = #{logEndTime,jdbcType=BIGINT},
+      log_stay_time = #{logStayTime,jdbcType=TIMESTAMP},
+      log_param = #{logParam,jdbcType=VARCHAR},
+      log_currentuser = #{logCurrentuser,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>
